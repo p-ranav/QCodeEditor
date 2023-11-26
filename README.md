@@ -27,13 +27,33 @@ must not use a resource file with the same name.
 It's a CMake-based library, so it can be used as a submodule (see the example).
 But here are the steps to build it as a static library (for external use for example).
 
-1. Clone the repository: `git clone https://github.com/Megaxela/QCodeEditor`
-1. Go into the repository: `cd QCodeEditor`
-1. Create a build folder: `mkdir build`
-1. Go into the build folder: `cd build`
-1. Generate a build file for your compiler: `cmake ..`
-    1. If you need to build the example, specify `-DBUILD_EXAMPLE=On` on this step.
-1. Build the library: `cmake --build .`
+### MacOs
+
+```console
+brew install libraw qt@6
+mkdir build
+cd build
+cmake -DBUILD_EXAMPLE=on -DCMAKE_BUILD_TYPE=Release -DQt6_DIR=$(brew --prefix qt6)/lib/cmake/Qt6 ..
+make
+```
+
+### Ubuntu
+
+```console
+sudo apt install libraw-dev qt6-base-dev
+mkdir build
+cd build
+cmake -DBUILD_EXAMPLE=on -DCMAKE_BUILD_TYPE=Release ..
+make
+```
+
+For older versions of Ubuntu,
+
+```console
+sudo add-apt-repository ppa:okirby/qt6-backports
+sudo apt update
+sudo apt install qt6-base-dev
+```
 
 ## Example
 
