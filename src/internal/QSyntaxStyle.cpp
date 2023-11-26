@@ -28,7 +28,7 @@ bool QSyntaxStyle::load(QString fl)
 
         if(token == QXmlStreamReader::StartElement)
         {
-            const QString style_schema_literal("style-schema");
+            const QString style_schema_literal("style-scheme");
             const QString style_literal("style");
 
             if (reader.name() == QStringView{style_schema_literal.data(), style_schema_literal.size()})
