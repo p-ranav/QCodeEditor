@@ -3,6 +3,7 @@
 
 // QCodeEditor
 #include <QCodeEditor>
+#include <QFile>
 #include <QGLSLCompleter>
 #include <QLuaCompleter>
 #include <QPythonCompleter>

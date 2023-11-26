@@ -6,6 +6,9 @@
 #include <QXmlStreamReader>
 #include <QFile>
 
+// C++
+#include <string_view>
+
 QSyntaxStyle::QSyntaxStyle(QObject* parent) :
     QObject(parent),
     m_name(),
@@ -25,14 +28,17 @@ bool QSyntaxStyle::load(QString fl)
 
         if(token == QXmlStreamReader::StartElement)
         {
-            if (reader.name() == "style-scheme")
+            const QString style_schema_literal("style-schema");
+            const QString style_literal("style");
+
+            if (reader.name() == QStringView{style_schema_literal.data(), style_schema_literal.size()})
             {
                 if (reader.attributes().hasAttribute("name"))
                 {
                     m_name = reader.attributes().value("name").toString();
                 }
             }
-            else if (reader.name() == "style")
+            else if (reader.name() == QStringView{style_literal.data(), style_literal.size()})
             {
                 auto attributes = reader.attributes();
 
@@ -50,14 +56,16 @@ bool QSyntaxStyle::load(QString fl)
                     format.setForeground(QColor(attributes.value("foreground").toString()));
                 }
 
+                const QString true_literal("true");
+
                 if (attributes.hasAttribute("bold") &&
-                    attributes.value("bold") == "true")
+                    attributes.value("bold") == QStringView(true_literal.data(), true_literal.size()))
                 {
                     format.setFontWeight(QFont::Weight::Bold);
                 }
 
                 if (attributes.hasAttribute("italic") &&
-                    attributes.value("italic") == "true")
+                    attributes.value("italic") == QStringView(true_literal.data(), true_literal.size()))
                 {
                     format.setFontItalic(true);
                 }
@@ -68,31 +76,39 @@ bool QSyntaxStyle::load(QString fl)
 
                     auto s = QTextCharFormat::UnderlineStyle::NoUnderline;
 
-                    if (underline == "SingleUnderline")
+                    const QString single_underline_literal("SingleUnderline");
+                    const QString dash_underline_literal("DashUnderline");
+                    const QString dot_line_literal("DotLine");
+                    const QString dash_dot_line_literal("DashDotLine");
+                    const QString dash_dot_dot_line_literal("DashDotDotLine");
+                    const QString wave_underline_literal("WaveUnderline");
+                    const QString spell_check_underline_literal("SpellCheckUnderline");
+
+                    if (underline == QStringView{single_underline_literal.data(), single_underline_literal.size()})
                     {
                         s = QTextCharFormat::UnderlineStyle::SingleUnderline;
                     }
-                    else if (underline == "DashUnderline")
+                    else if (underline == QStringView{dash_underline_literal.data(), dash_underline_literal.size()})
                     {
                         s = QTextCharFormat::UnderlineStyle::DashUnderline;
                     }
-                    else if (underline == "DotLine")
+                    else if (underline == QStringView{dot_line_literal.data(), dot_line_literal.size()})
                     {
                         s = QTextCharFormat::UnderlineStyle::DotLine;
                     }
-                    else if (underline == "DashDotLine")
+                    else if (underline == QStringView{dash_dot_line_literal.data(), dash_dot_line_literal.size()})
                     {
                         s = QTextCharFormat::DashDotLine;
                     }
-                    else if (underline == "DashDotDotLine")
+                    else if (underline == QStringView{dash_dot_dot_line_literal.data(), dash_dot_dot_line_literal.size()})
                     {
                         s = QTextCharFormat::DashDotDotLine;
                     }
-                    else if (underline == "WaveUnderline")
+                    else if (underline == QStringView{wave_underline_literal.data(), wave_underline_literal.size()})
                     {
                         s = QTextCharFormat::WaveUnderline;
                     }
-                    else if (underline == "SpellCheckUnderline")
+                    else if (underline == QStringView{spell_check_underline_literal.data(), spell_check_underline_literal.size()})
                     {
                         s = QTextCharFormat::SpellCheckUnderline;
                     }

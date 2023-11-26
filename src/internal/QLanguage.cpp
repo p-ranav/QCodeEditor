@@ -32,7 +32,10 @@ bool QLanguage::load(QIODevice* device)
 
         if (type == QXmlStreamReader::TokenType::StartElement)
         {
-            if (reader.name() == "section")
+            const QString section_literal("section");
+            const QString name_literal("name");
+
+            if (reader.name() == QStringView{section_literal.data(), section_literal.size()})
             {
                 if (!list.empty())
                 {
@@ -42,7 +45,7 @@ bool QLanguage::load(QIODevice* device)
 
                 name = reader.attributes().value("name").toString();
             }
-            else if (reader.name() == "name")
+            else if (reader.name() == QStringView{name_literal.data(), name_literal.size()})
             {
                 readText = true;
             }
