@@ -3,6 +3,18 @@ project(QCodeEditorExample)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Enable all compiler warnings
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
+elseif(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+endif()
+
+# Enable optimization level -O3
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+endif()
+
 set(CMAKE_AUTOMOC On)
 set(CMAKE_AUTORCC ON)
 

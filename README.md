@@ -7,8 +7,8 @@ must not use a resource file with the same name.
 (It's not a project from a Qt example.)
 
 ## Requirements
-0. C++11 featured compiler.
-0. Qt 5.
+0. C++17 featured compiler.
+0. Qt 6.
 
 ## Abilities
 1. Auto parentheses.
